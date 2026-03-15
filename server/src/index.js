@@ -16,6 +16,10 @@ import ratingRoutes from './routes/rating.routes.js';
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/ratings', ratingRoutes);
 
+import adminRoutes from './routes/admin.routes.js';
+
+app.use('/api/admin', adminRoutes);
+
 dotenv.config();
 
 const app = express();
