@@ -5,6 +5,17 @@ import { createServer } from 'http';
 import { Server } from 'socket.io';
 import authRoutes from './routes/auth.routes.js';
 
+import bikeRoutes from './routes/bike.routes.js';
+app.use('/api/bikes', bikeRoutes);
+import bookingRoutes from './routes/booking.routes.js';
+app.use('/api/bookings', bookingRoutes);
+
+import notificationRoutes from './routes/notification.routes.js';
+import ratingRoutes from './routes/rating.routes.js';
+
+app.use('/api/notifications', notificationRoutes);
+app.use('/api/ratings', ratingRoutes);
+
 dotenv.config();
 
 const app = express();
