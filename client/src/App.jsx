@@ -9,6 +9,8 @@ import BikeDetail from './pages/renter/BikeDetail';
 import MyBookings from './pages/renter/MyBookings';
 import OwnerDashboard from './pages/owner/OwnerDashboard';
 import OwnerListings from './pages/owner/OwnerListings';
+import SocketProvider from './context/SocketProvider';
+import Notifications from './pages/Notifications';
 
 const ProtectedRoute = ({ children, roles }) => {
   const { user, loading } = useAuth();
@@ -21,23 +23,24 @@ const ProtectedRoute = ({ children, roles }) => {
 function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
-        <Toaster position="top-right" />
-        <Routes>
-          <Route path="/" element={<Navigate to="/login" />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/browse" element={<ProtectedRoute roles={['RENTER']}><Browse /></ProtectedRoute>} />
-          <Route path="/owner/dashboard" element={<ProtectedRoute roles={['OWNER']}><div>Owner dashboard coming soon</div></ProtectedRoute>} />
-          <Route path="/admin/dashboard" element={<ProtectedRoute roles={['ADMIN']}><div>Admin dashboard coming soon</div></ProtectedRoute>} />
-          <Route path="/bikes/:id" element={<ProtectedRoute roles={['RENTER']}><BikeDetail /></ProtectedRoute>} />
-          <Route path="/my-bookings" element={<ProtectedRoute roles={['RENTER']}><MyBookings /></ProtectedRoute>} />
-          <Route path="/owner/dashboard" element={<ProtectedRoute roles={['OWNER']}><OwnerDashboard /></ProtectedRoute>} />
-<Route path="/owner/listings" element={<ProtectedRoute roles={['OWNER']}><OwnerListings /></ProtectedRoute>} />
-        </Routes>
-      </BrowserRouter>
+      <SocketProvider>
+        <BrowserRouter>
+          <Toaster position="top-right" />
+          <Routes>
+            <Route path="/" element={<Navigate to="/login" />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/browse" element={<ProtectedRoute roles={['RENTER']}><Browse /></ProtectedRoute>} />
+            <Route path="/bikes/:id" element={<ProtectedRoute roles={['RENTER']}><BikeDetail /></ProtectedRoute>} />
+            <Route path="/my-bookings" element={<ProtectedRoute roles={['RENTER']}><MyBookings /></ProtectedRoute>} />
+            <Route path="/owner/dashboard" element={<ProtectedRoute roles={['OWNER']}><OwnerDashboard /></ProtectedRoute>} />
+            <Route path="/owner/listings" element={<ProtectedRoute roles={['OWNER']}><OwnerListings /></ProtectedRoute>} />
+            <Route path="/admin/dashboard" element={<ProtectedRoute roles={['ADMIN']}><div>Admin dashboard coming soon</div></ProtectedRoute>} />
+            <Route path="/notifications" element={<ProtectedRoute roles={['RENTER', 'OWNER', 'ADMIN']}><Notifications /></ProtectedRoute>} />
+          </Routes>
+        </BrowserRouter>
+      </SocketProvider>
     </AuthProvider>
   );
 }
-
 export default App;
