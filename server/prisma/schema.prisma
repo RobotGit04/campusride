@@ -1,0 +1,124 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("DATABASE_URL")
+}
+
+enum Role {
+  RENTER
+  OWNER
+  ADMIN
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  ACTIVE
+  COMPLETED
+  CANCELLED
+  REJECTED
+}
+
+enum BikeType {
+  CYCLE
+  SCOOTER
+  MOPED
+}
+
+model User {
+  id              String    @id @default(uuid())
+  name            String
+  email           String    @unique
+  password        String
+  role            Role      @default(RENTER)
+  phone           String?
+  photo           String?
+  isVerified      Boolean   @default(false)
+  isSuspended     Boolean   @default(false)
+  resetOtp        String?
+  resetOtpExpiry  DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  bikes            Bike[]
+  bookingsAsRenter Booking[] @relation("RenterBookings")
+  ratingsGiven     Rating[]  @relation("RaterRatings")
+  ratingsReceived  Rating[]  @relation("RateeRatings")
+  notifications    Notification[]
+}
+
+model Bike {
+  id          String    @id @default(uuid())
+  name        String
+  type        BikeType
+  description String
+  photos      String[]
+  pricePerDay Float
+  deposit     Float
+  isAvailable Boolean   @default(true)
+  isSuspended Boolean   @default(false)
+  ownerId     String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  owner       User      @relation(fields: [ownerId], references: [id])
+  bookings    Booking[]
+  ratings     Rating[]
+}
+
+model Booking {
+  id          String        @id @default(uuid())
+  renterId    String
+  bikeId      String
+  startDate   DateTime
+  endDate     DateTime
+  totalCost   Float
+  commission  Float
+  netPayout   Float
+  status      BookingStatus @default(PENDING)
+  receiptUrl  String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  renter      User          @relation("RenterBookings", fields: [renterId], references: [id])
+  bike        Bike          @relation(fields: [bikeId], references: [id])
+  rating      Rating?
+}
+
+model Rating {
+  id          String   @id @default(uuid())
+  bookingId   String   @unique
+  raterId     String
+  rateeId     String
+  bikeId      String
+  stars       Int
+  review      String?
+  createdAt   DateTime @default(now())
+
+  booking     Booking  @relation(fields: [bookingId], references: [id])
+  rater       User     @relation("RaterRatings", fields: [raterId], references: [id])
+  ratee       User     @relation("RateeRatings", fields: [rateeId], references: [id])
+  bike        Bike     @relation(fields: [bikeId], references: [id])
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String
+  title     String
+  message   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model Commission {
+  id          String   @id @default(uuid())
+  bookingId   String   @unique
+  amount      Float
+  percentage  Float    @default(10)
+  createdAt   DateTime @default(now())
+}
