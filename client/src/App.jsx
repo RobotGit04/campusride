@@ -4,6 +4,11 @@ import AuthProvider from './context/AuthProvider';
 import { useAuth } from './hooks/useAuth';
 import Login from './pages/auth/Login';
 import Signup from './pages/auth/Signup';
+import Browse from './pages/renter/Browse';
+import BikeDetail from './pages/renter/BikeDetail';
+import MyBookings from './pages/renter/MyBookings';
+import OwnerDashboard from './pages/owner/OwnerDashboard';
+import OwnerListings from './pages/owner/OwnerListings';
 
 const ProtectedRoute = ({ children, roles }) => {
   const { user, loading } = useAuth();
@@ -22,9 +27,13 @@ function App() {
           <Route path="/" element={<Navigate to="/login" />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/browse" element={<ProtectedRoute roles={['RENTER']}><div>Browse page coming soon</div></ProtectedRoute>} />
+          <Route path="/browse" element={<ProtectedRoute roles={['RENTER']}><Browse /></ProtectedRoute>} />
           <Route path="/owner/dashboard" element={<ProtectedRoute roles={['OWNER']}><div>Owner dashboard coming soon</div></ProtectedRoute>} />
           <Route path="/admin/dashboard" element={<ProtectedRoute roles={['ADMIN']}><div>Admin dashboard coming soon</div></ProtectedRoute>} />
+          <Route path="/bikes/:id" element={<ProtectedRoute roles={['RENTER']}><BikeDetail /></ProtectedRoute>} />
+          <Route path="/my-bookings" element={<ProtectedRoute roles={['RENTER']}><MyBookings /></ProtectedRoute>} />
+          <Route path="/owner/dashboard" element={<ProtectedRoute roles={['OWNER']}><OwnerDashboard /></ProtectedRoute>} />
+<Route path="/owner/listings" element={<ProtectedRoute roles={['OWNER']}><OwnerListings /></ProtectedRoute>} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
