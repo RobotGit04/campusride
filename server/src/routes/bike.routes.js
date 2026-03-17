@@ -9,9 +9,19 @@ import {
 const router = express.Router();
 
 router.get('/', getAllBikes);
-router.get('/:id', getBikeById);
-router.post('/', protect, restrictTo('OWNER'), upload.array('photos', 5), createBike);
 router.get('/owner/my-bikes', protect, restrictTo('OWNER'), getOwnerBikes);
+router.get('/:id', getBikeById);
+
+router.post('/', protect, restrictTo('OWNER'), (req, res, next) => {
+  upload.array('photos', 5)(req, res, (err) => {
+    if (err) {
+      console.error('UPLOAD ERROR:', err);
+      return res.status(500).json({ message: 'Upload failed', error: err.message });
+    }
+    next();
+  });
+}, createBike);
+
 router.put('/:id', protect, restrictTo('OWNER'), updateBike);
 router.delete('/:id', protect, restrictTo('OWNER'), deleteBike);
 

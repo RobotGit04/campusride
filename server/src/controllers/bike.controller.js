@@ -7,6 +7,10 @@ export const createBike = async (req, res) => {
     const { name, type, description, pricePerDay, deposit } = req.body;
     const photos = req.files ? req.files.map(f => f.path) : [];
 
+    console.log('Creating bike:', { name, type, description, pricePerDay, deposit });
+    console.log('Photos:', photos);
+    console.log('Owner:', req.user.id);
+
     const bike = await prisma.bike.create({
       data: {
         name,
@@ -21,6 +25,7 @@ export const createBike = async (req, res) => {
 
     res.status(201).json({ message: 'Bike listed successfully', bike });
   } catch (error) {
+    console.error('BIKE CREATE ERROR:', error);
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
@@ -65,6 +70,7 @@ export const getAllBikes = async (req, res) => {
 
     res.json(bikesWithRating);
   } catch (error) {
+    console.error('GET BIKES ERROR:', error);
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
@@ -94,6 +100,7 @@ export const getBikeById = async (req, res) => {
 
     res.json({ ...bike, avgRating });
   } catch (error) {
+    console.error('GET BIKE ERROR:', error);
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
@@ -113,6 +120,7 @@ export const getOwnerBikes = async (req, res) => {
     });
     res.json(bikes);
   } catch (error) {
+    console.error('GET OWNER BIKES ERROR:', error);
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
@@ -137,6 +145,7 @@ export const updateBike = async (req, res) => {
 
     res.json({ message: 'Bike updated', bike: updated });
   } catch (error) {
+    console.error('UPDATE BIKE ERROR:', error);
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
@@ -150,6 +159,7 @@ export const deleteBike = async (req, res) => {
     await prisma.bike.delete({ where: { id: req.params.id } });
     res.json({ message: 'Bike deleted' });
   } catch (error) {
+    console.error('DELETE BIKE ERROR:', error);
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
