@@ -51,6 +51,10 @@ export default function Navbar() {
           )}
         </Link>
 
+        <Link to="/profile" className="text-sm text-gray-600 hover:text-blue-600">
+          Profile
+        </Link>
+
         <button onClick={handleLogout}
           className="text-sm text-red-500 hover:text-red-700">
           Logout
