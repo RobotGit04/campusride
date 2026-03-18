@@ -13,6 +13,7 @@ import ratingRoutes from './routes/rating.routes.js';
 import adminRoutes from './routes/admin.routes.js';
 
 const app = express();
+app.set('trust proxy', 1);
 const httpServer = createServer(app);
 
 export const io = new Server(httpServer, {
