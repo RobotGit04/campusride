@@ -1,8 +1,9 @@
-
 import express from 'express';
 import cors from 'cors';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
+import rateLimit from 'express-rate-limit';
+import helmet from 'helmet';
 
 import authRoutes from './routes/auth.routes.js';
 import bikeRoutes from './routes/bike.routes.js';
@@ -21,12 +22,27 @@ export const io = new Server(httpServer, {
   }
 });
 
+app.use(helmet());
 app.use(cors({
   origin: process.env.CLIENT_URL || 'http://localhost:5173',
   credentials: true
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  message: { message: 'Too many requests, please try again later' }
+});
+app.use('/api/', limiter);
+
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 10,
+  message: { message: 'Too many login attempts, please try again later' }
+});
+app.use('/api/auth/', authLimiter);
 
 app.use('/api/auth', authRoutes);
 app.use('/api/bikes', bikeRoutes);

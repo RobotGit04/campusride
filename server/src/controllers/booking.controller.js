@@ -99,9 +99,22 @@ export const updateBookingStatus = async (req, res) => {
         where: { id: booking.bikeId },
         data: { isAvailable: false },
       });
+
+      try {
+        const { sendBookingConfirmationEmail } = await import('../utils/email.js');
+        await sendBookingConfirmationEmail(booking.renter.email, {
+          bikeName: booking.bike.name,
+          startDate: new Date(booking.startDate).toDateString(),
+          endDate: new Date(booking.endDate).toDateString(),
+          totalCost: booking.totalCost,
+          ownerPhone: booking.bike.ownerId,
+        });
+      } catch (emailError) {
+        console.error('Email failed:', emailError.message);
+      }
     }
 
-    if (status === 'COMPLETED' || status === 'REJECTED' || status === 'CANCELLED') {
+    if (['COMPLETED', 'REJECTED', 'CANCELLED'].includes(status)) {
       await prisma.bike.update({
         where: { id: booking.bikeId },
         data: { isAvailable: true },
