@@ -63,7 +63,7 @@ export default function Login() {
               <label style={{ fontSize: 12, color: '#3b5e8a', display: 'block', marginBottom: 6 }}>
                 Email address
               </label>
-              <input name="email" type="email" placeholder="you@vit.ac.in"
+              <input name="email" type="email" placeholder="example@vitap.ac.in"
                 value={form.email} onChange={handleChange} required
                 style={{
                   width: '100%', background: '#f0f5ff',
