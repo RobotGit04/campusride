@@ -31,41 +31,101 @@ export default function Signup() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 w-full max-w-md p-8">
-        <h1 className="text-2xl font-bold text-gray-900 mb-2">Join CampusRide</h1>
-        <p className="text-gray-500 mb-6">Create your account to get started</p>
+    <div style={{
+      minHeight: '100vh', background: '#f0f5ff',
+      display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16
+    }}>
+      <div style={{ width: '100%', maxWidth: 400 }}>
+        <div style={{ textAlign: 'center', marginBottom: 32 }}>
+          <Link to="/" style={{
+            fontSize: 22, fontWeight: 800, color: '#0c1e3d',
+            textDecoration: 'none', letterSpacing: '-0.5px'
+          }}>
+            CampusRide
+          </Link>
+          <p style={{ fontSize: 13, color: '#3b5e8a', marginTop: 4 }}>
+            Bike rentals for VIT AP students
+          </p>
+        </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <input name="name" placeholder="Full name" value={form.name}
-            onChange={handleChange} required
-            className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"/>
-          <input name="email" type="email" placeholder="College email" value={form.email}
-            onChange={handleChange} required
-            className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"/>
-          <input name="phone" placeholder="Phone number" value={form.phone}
-            onChange={handleChange}
-            className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"/>
-          <input name="password" type="password" placeholder="Password" value={form.password}
-            onChange={handleChange} required
-            className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+        <div style={{
+          background: '#fff', borderRadius: 16,
+          border: '0.5px solid #bfdbfe', padding: 32
+        }}>
+          <h1 style={{ fontSize: 20, fontWeight: 700, color: '#0c1e3d', marginBottom: 4 }}>
+            Join CampusRide
+          </h1>
+          <p style={{ fontSize: 13, color: '#3b5e8a', marginBottom: 24 }}>
+            Create your account to get started
+          </p>
 
-          <select name="role" value={form.role} onChange={handleChange}
-            className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <option value="RENTER">I want to rent a bike</option>
-            <option value="OWNER">I want to list my bike</option>
-          </select>
+          <form onSubmit={handleSubmit}>
+            {[
+              { name: 'name', label: 'Full name', type: 'text', placeholder: 'Your full name' },
+              { name: 'email', label: 'College email', type: 'email', placeholder: 'you@vit.ac.in' },
+              { name: 'phone', label: 'Phone number', type: 'text', placeholder: '+91 9876543210' },
+              { name: 'password', label: 'Password', type: 'password', placeholder: '••••••••' },
+            ].map(field => (
+              <div key={field.name} style={{ marginBottom: 14 }}>
+                <label style={{ fontSize: 12, color: '#3b5e8a', display: 'block', marginBottom: 6 }}>
+                  {field.label}
+                </label>
+                <input
+                  name={field.name} type={field.type}
+                  placeholder={field.placeholder}
+                  value={form[field.name]} onChange={handleChange}
+                  required={field.name !== 'phone'}
+                  style={{
+                    width: '100%', background: '#f0f5ff',
+                    border: '1px solid #bfdbfe', borderRadius: 8,
+                    padding: '10px 14px', fontSize: 13, color: '#0c1e3d',
+                    outline: 'none', boxSizing: 'border-box'
+                  }}/>
+              </div>
+            ))}
 
-          <button type="submit" disabled={loading}
-            className="w-full bg-blue-600 text-white rounded-xl py-3 font-medium hover:bg-blue-700 transition disabled:opacity-50">
-            {loading ? 'Creating account...' : 'Create account'}
-          </button>
-        </form>
+            <div style={{ marginBottom: 20 }}>
+              <label style={{ fontSize: 12, color: '#3b5e8a', display: 'block', marginBottom: 6 }}>
+                I want to
+              </label>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+                {[
+                  { value: 'RENTER', label: 'Rent a bike' },
+                  { value: 'OWNER', label: 'List my bike' },
+                ].map(opt => (
+                  <button key={opt.value} type="button"
+                    onClick={() => setForm({ ...form, role: opt.value })}
+                    style={{
+                      padding: '10px', borderRadius: 8, fontSize: 13,
+                      fontWeight: form.role === opt.value ? 600 : 400,
+                      background: form.role === opt.value ? '#0c1e3d' : '#f0f5ff',
+                      color: form.role === opt.value ? '#e8f0fe' : '#3b5e8a',
+                      border: form.role === opt.value ? 'none' : '1px solid #bfdbfe',
+                      cursor: 'pointer',
+                    }}>
+                    {opt.label}
+                  </button>
+                ))}
+              </div>
+            </div>
 
-        <p className="text-center text-sm text-gray-500 mt-4">
-          Already have an account?{' '}
-          <Link to="/login" className="text-blue-600 font-medium">Log in</Link>
-        </p>
+            <button type="submit" disabled={loading} style={{
+              width: '100%', background: '#0c1e3d', color: '#e8f0fe',
+              border: 'none', borderRadius: 8, padding: '12px',
+              fontSize: 14, fontWeight: 600, cursor: 'pointer',
+              opacity: loading ? 0.6 : 1
+            }}>
+              {loading ? 'Creating account...' : 'Create account'}
+            </button>
+          </form>
+
+          <p style={{ textAlign: 'center', fontSize: 13, color: '#3b5e8a', marginTop: 20 }}>
+            Already have an account?{' '}
+            <Link to="/login" style={{ color: '#2563eb', fontWeight: 600, textDecoration: 'none' }}>
+              Log in
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );

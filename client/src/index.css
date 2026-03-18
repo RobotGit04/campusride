@@ -1,1 +1,11 @@
 @import "tailwindcss";
+@import "./styles/theme.css";
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--cr-50);
+  color: var(--cr-900);
+}

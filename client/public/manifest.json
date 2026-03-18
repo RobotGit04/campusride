@@ -1,0 +1,18 @@
+{
+  "name": "CampusRide",
+  "short_name": "CampusRide",
+  "description": "Bike rentals for VIT AP University students",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f0f5ff",
+  "theme_color": "#0c1e3d",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -10,7 +10,6 @@ export default function Browse() {
   const [type, setType] = useState('');
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
-  
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -28,49 +27,74 @@ export default function Browse() {
     return () => clearTimeout(timer);
   }, [search, type, minPrice, maxPrice]);
 
+  const inputStyle = {
+    background: '#fff', border: '1px solid #bfdbfe',
+    borderRadius: 8, padding: '9px 14px',
+    fontSize: 13, color: '#0c1e3d', outline: 'none',
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div style={{ minHeight: '100vh', background: '#f0f5ff' }}>
       <Navbar />
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '32px 24px' }}>
 
-      <div className="max-w-6xl mx-auto px-4 py-8">
-        <h1 className="text-2xl font-bold text-gray-900 mb-6">Find a bike</h1>
+        <div style={{ marginBottom: 24 }}>
+          <h1 style={{ fontSize: 24, fontWeight: 800, color: '#0c1e3d', marginBottom: 4 }}>
+            Find a bike
+          </h1>
+          <p style={{ fontSize: 13, color: '#3b5e8a' }}>
+            Browse available bikes near VIT AP campus
+          </p>
+        </div>
 
-        <div className="bg-white rounded-2xl border border-gray-200 p-4 mb-6 flex flex-wrap gap-3">
-          <input
-            placeholder="Search by bike or owner name..."
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-            className="flex-1 min-w-48 border border-gray-200 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+        <div style={{
+          background: '#fff', borderRadius: 14,
+          border: '0.5px solid #bfdbfe', padding: '16px 20px',
+          marginBottom: 24, display: 'flex', flexWrap: 'wrap', gap: 10, alignItems: 'center'
+        }}>
+          <input placeholder="Search by bike or owner name..."
+            value={search} onChange={e => setSearch(e.target.value)}
+            style={{ ...inputStyle, flex: '1', minWidth: 200 }}/>
 
           <select value={type} onChange={e => setType(e.target.value)}
-            className="border border-gray-200 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            style={{ ...inputStyle, minWidth: 130 }}>
             <option value="">All types</option>
             <option value="CYCLE">Cycle</option>
             <option value="SCOOTER">Scooter</option>
             <option value="MOPED">Moped</option>
           </select>
 
-          <input placeholder="Min price" type="number" value={minPrice}
+          <input placeholder="Min ₹" type="number" value={minPrice}
             onChange={e => setMinPrice(e.target.value)}
-            className="w-28 border border-gray-200 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+            style={{ ...inputStyle, width: 90 }}/>
 
-          <input placeholder="Max price" type="number" value={maxPrice}
+          <input placeholder="Max ₹" type="number" value={maxPrice}
             onChange={e => setMaxPrice(e.target.value)}
-            className="w-28 border border-gray-200 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+            style={{ ...inputStyle, width: 90 }}/>
 
           <button onClick={() => { setSearch(''); setType(''); setMinPrice(''); setMaxPrice(''); }}
-            className="text-sm text-gray-500 hover:text-red-500 px-3">
+            style={{
+              fontSize: 12, color: '#3b5e8a', background: 'none',
+              border: 'none', cursor: 'pointer', padding: '4px 8px'
+            }}>
             Clear
           </button>
         </div>
 
         {loading ? (
-          <div className="text-center py-20 text-gray-400">Loading bikes...</div>
+          <div style={{ textAlign: 'center', padding: '80px 0', color: '#7aa3d4' }}>
+            Loading bikes...
+          </div>
         ) : bikes.length === 0 ? (
-          <div className="text-center py-20 text-gray-400">No bikes found</div>
+          <div style={{ textAlign: 'center', padding: '80px 0', color: '#7aa3d4' }}>
+            No bikes found
+          </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
+            gap: 16
+          }}>
             {bikes.map(bike => <BikeCard key={bike.id} bike={bike} />)}
           </div>
         )}

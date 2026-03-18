@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+:root {
+  --cr-900: #0c1e3d;
+  --cr-800: #0f2a52;
+  --cr-700: #1e40af;
+  --cr-600: #2563eb;
+  --cr-500: #3b82f6;
+  --cr-400: #7aa3d4;
+  --cr-200: #bfdbfe;
+  --cr-100: #e8f0fe;
+  --cr-50:  #f0f5ff;
+}
