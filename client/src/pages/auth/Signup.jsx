@@ -31,101 +31,116 @@ export default function Signup() {
   };
 
   return (
-    <div style={{
-      minHeight: '100vh', background: '#f0f5ff',
-      display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16
-    }}>
-      <div style={{ width: '100%', maxWidth: 400 }}>
-        <div style={{ textAlign: 'center', marginBottom: 32 }}>
-          <Link to="/" style={{
-            fontSize: 22, fontWeight: 800, color: '#0c1e3d',
-            textDecoration: 'none', letterSpacing: '-0.5px'
-          }}>
+    <div className="min-h-screen flex items-center justify-center p-6 font-body bg-[#e8f0fe]">
+      <div className="max-w-md w-full">
+
+        <div className="mb-10 text-center">
+          <h1 className="font-headline font-extrabold text-4xl text-primary tracking-tighter italic">
             CampusRide
-          </Link>
-          <p style={{ fontSize: 13, color: '#3b5e8a', marginTop: 4 }}>
-            Bike rentals for VIT AP students
+          </h1>
+          <p className="text-on-surface-variant mt-2 font-medium">
+            Join the Scholarly Kinetic community.
           </p>
         </div>
 
-        <div style={{
-          background: '#fff', borderRadius: 16,
-          border: '0.5px solid #bfdbfe', padding: 32
-        }}>
-          <h1 style={{ fontSize: 20, fontWeight: 700, color: '#0c1e3d', marginBottom: 4 }}>
-            Join CampusRide
-          </h1>
-          <p style={{ fontSize: 13, color: '#3b5e8a', marginBottom: 24 }}>
-            Create your account to get started
-          </p>
+        <div className="bg-surface-container-lowest border border-[#bfdbfe] rounded-[16px] p-8 md:p-10"
+          style={{ boxShadow: '0 20px 50px -12px rgba(12,30,61,0.08)' }}>
 
-          <form onSubmit={handleSubmit}>
-            {[
-              { name: 'name', label: 'Full name', type: 'text', placeholder: 'Your full name' },
-              { name: 'email', label: 'College email', type: 'email', placeholder: 'you@vit.ac.in' },
-              { name: 'phone', label: 'Phone number', type: 'text', placeholder: '+91 9876543210' },
-              { name: 'password', label: 'Password', type: 'password', placeholder: '••••••••' },
-            ].map(field => (
-              <div key={field.name} style={{ marginBottom: 14 }}>
-                <label style={{ fontSize: 12, color: '#3b5e8a', display: 'block', marginBottom: 6 }}>
-                  {field.label}
-                </label>
-                <input
-                  name={field.name} type={field.type}
-                  placeholder={field.placeholder}
-                  value={form[field.name]} onChange={handleChange}
-                  required={field.name !== 'phone'}
-                  style={{
-                    width: '100%', background: '#f0f5ff',
-                    border: '1px solid #bfdbfe', borderRadius: 8,
-                    padding: '10px 14px', fontSize: 13, color: '#0c1e3d',
-                    outline: 'none', boxSizing: 'border-box'
-                  }}/>
-              </div>
-            ))}
-
-            <div style={{ marginBottom: 20 }}>
-              <label style={{ fontSize: 12, color: '#3b5e8a', display: 'block', marginBottom: 6 }}>
-                I want to
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="space-y-3">
+              <label className="font-headline font-semibold text-sm text-primary tracking-tight">
+                I want to...
               </label>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+              <div className="grid grid-cols-2 gap-3 p-1 bg-surface-container rounded-xl">
                 {[
                   { value: 'RENTER', label: 'Rent a bike' },
                   { value: 'OWNER', label: 'List my bike' },
                 ].map(opt => (
                   <button key={opt.value} type="button"
                     onClick={() => setForm({ ...form, role: opt.value })}
-                    style={{
-                      padding: '10px', borderRadius: 8, fontSize: 13,
-                      fontWeight: form.role === opt.value ? 600 : 400,
-                      background: form.role === opt.value ? '#0c1e3d' : '#f0f5ff',
-                      color: form.role === opt.value ? '#e8f0fe' : '#3b5e8a',
-                      border: form.role === opt.value ? 'none' : '1px solid #bfdbfe',
-                      cursor: 'pointer',
-                    }}>
+                    className={`py-3 px-4 rounded-lg font-headline font-bold text-sm transition-all duration-200 ${
+                      form.role === opt.value
+                        ? 'bg-primary-container text-white shadow-md'
+                        : 'text-on-primary-container hover:bg-surface-container-highest'
+                    }`}>
                     {opt.label}
                   </button>
                 ))}
               </div>
             </div>
 
-            <button type="submit" disabled={loading} style={{
-              width: '100%', background: '#0c1e3d', color: '#e8f0fe',
-              border: 'none', borderRadius: 8, padding: '12px',
-              fontSize: 14, fontWeight: 600, cursor: 'pointer',
-              opacity: loading ? 0.6 : 1
-            }}>
+            <div className="space-y-4">
+              <div>
+                <label className="block font-headline font-semibold text-xs text-on-surface-variant uppercase tracking-wider mb-1.5 ml-1">
+                  Full Name
+                </label>
+                <input name="name" type="text" placeholder="Alex Rivers"
+                  value={form.name} onChange={handleChange} required
+                  className="w-full bg-surface-container border-0 rounded-lg py-3.5 px-4 text-on-surface placeholder:text-outline focus:ring-2 focus:ring-secondary/10 outline-none transition-all"/>
+              </div>
+
+              <div>
+                <label className="block font-headline font-semibold text-xs text-on-surface-variant uppercase tracking-wider mb-1.5 ml-1">
+                  College Email
+                </label>
+                <input name="email" type="email" placeholder="alex.rivers@vitap.ac.in"
+                  value={form.email} onChange={handleChange} required
+                  className="w-full bg-surface-container border-0 rounded-lg py-3.5 px-4 text-on-surface placeholder:text-outline focus:ring-2 focus:ring-secondary/10 outline-none transition-all"/>
+              </div>
+
+              <div>
+                <label className="block font-headline font-semibold text-xs text-on-surface-variant uppercase tracking-wider mb-1.5 ml-1">
+                  Phone Number
+                </label>
+                <div className="flex">
+                  <span className="inline-flex items-center px-4 rounded-l-lg bg-surface-container-highest text-on-surface-variant text-sm font-medium">
+                    +91
+                  </span>
+                  <input name="phone" type="tel" placeholder="9876543210"
+                    value={form.phone} onChange={handleChange}
+                    className="w-full bg-surface-container border-0 rounded-r-lg py-3.5 px-4 text-on-surface placeholder:text-outline focus:ring-2 focus:ring-secondary/10 outline-none transition-all"/>
+                </div>
+              </div>
+
+              <div>
+                <label className="block font-headline font-semibold text-xs text-on-surface-variant uppercase tracking-wider mb-1.5 ml-1">
+                  Password
+                </label>
+                <input name="password" type="password" placeholder="••••••••"
+                  value={form.password} onChange={handleChange} required
+                  className="w-full bg-surface-container border-0 rounded-lg py-3.5 px-4 text-on-surface placeholder:text-outline focus:ring-2 focus:ring-secondary/10 outline-none transition-all"/>
+              </div>
+            </div>
+
+            <button type="submit" disabled={loading}
+              className="w-full bg-primary-container text-white font-headline font-bold py-4 rounded-lg shadow-lg hover:bg-primary transition-all duration-300 active:scale-[0.98] mt-4 disabled:opacity-60">
               {loading ? 'Creating account...' : 'Create account'}
             </button>
           </form>
 
-          <p style={{ textAlign: 'center', fontSize: 13, color: '#3b5e8a', marginTop: 20 }}>
-            Already have an account?{' '}
-            <Link to="/login" style={{ color: '#2563eb', fontWeight: 600, textDecoration: 'none' }}>
-              Log in
-            </Link>
-          </p>
+          <div className="mt-8 pt-6 border-t border-outline-variant/20 text-center">
+            <p className="text-sm text-on-surface-variant">
+              Already have an account?{' '}
+              <Link to="/login" className="text-secondary font-semibold hover:underline ml-1">
+                Log in
+              </Link>
+            </p>
+          </div>
         </div>
+
+        <footer className="mt-12 text-center">
+          <p className="font-body text-xs text-slate-500 tracking-wide">
+            © 2025 CampusRide VIT AP. The Scholarly Kinetic.
+          </p>
+          <div className="flex justify-center gap-6 mt-4">
+            <a href="#" className="text-xs text-slate-400 hover:text-secondary transition-colors">
+              Terms of Service
+            </a>
+            <a href="#" className="text-xs text-slate-400 hover:text-secondary transition-colors">
+              Privacy Policy
+            </a>
+          </div>
+        </footer>
       </div>
     </div>
   );

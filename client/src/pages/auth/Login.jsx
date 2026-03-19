@@ -30,86 +30,98 @@ export default function Login() {
   };
 
   return (
-    <div style={{
-      minHeight: '100vh', background: '#f0f5ff',
-      display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16
-    }}>
-      <div style={{ width: '100%', maxWidth: 400 }}>
-        <div style={{ textAlign: 'center', marginBottom: 32 }}>
-          <Link to="/" style={{
-            fontSize: 22, fontWeight: 800, color: '#0c1e3d',
-            textDecoration: 'none', letterSpacing: '-0.5px'
-          }}>
+    <div className="min-h-screen flex items-center justify-center p-6 font-body"
+      style={{ background: 'linear-gradient(135deg, #f8f9ff 0%, #eef4ff 100%)' }}>
+
+      <div className="w-full max-w-[420px] flex flex-col items-center">
+        <div className="mb-10 text-center">
+          <h1 className="font-headline text-4xl font-extrabold tracking-tight italic text-primary-container">
             CampusRide
-          </Link>
-          <p style={{ fontSize: 13, color: '#3b5e8a', marginTop: 4 }}>
-            Bike rentals for VIT AP students
+          </h1>
+          <p className="mt-3 text-on-surface-variant font-medium">
+            The Scholarly Kinetic
           </p>
         </div>
 
-        <div style={{
-          background: '#fff', borderRadius: 16,
-          border: '0.5px solid #bfdbfe', padding: 32
-        }}>
-          <h1 style={{ fontSize: 20, fontWeight: 700, color: '#0c1e3d', marginBottom: 4 }}>
-            Welcome back
-          </h1>
-          <p style={{ fontSize: 13, color: '#3b5e8a', marginBottom: 24 }}>
-            Log in to your CampusRide account
-          </p>
+        <div className="w-full bg-surface-container-lowest rounded-[16px] p-8 md:p-10 border border-[#bfdbfe]"
+          style={{ boxShadow: '0 20px 50px -12px rgba(12,30,61,0.08)' }}>
 
-          <form onSubmit={handleSubmit}>
-            <div style={{ marginBottom: 14 }}>
-              <label style={{ fontSize: 12, color: '#3b5e8a', display: 'block', marginBottom: 6 }}>
-                Email address
+          <div className="mb-8">
+            <h2 className="font-headline text-2xl font-bold text-on-surface">Welcome back</h2>
+            <p className="text-on-surface-variant text-sm mt-1">Please enter your university credentials</p>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="space-y-2">
+              <label className="block text-xs font-semibold uppercase tracking-wider text-on-primary-container">
+                Email Address
               </label>
-              <input name="email" type="email" placeholder="example@vitap.ac.in"
-                value={form.email} onChange={handleChange} required
-                style={{
-                  width: '100%', background: '#f0f5ff',
-                  border: '1px solid #bfdbfe', borderRadius: 8,
-                  padding: '10px 14px', fontSize: 13, color: '#0c1e3d',
-                  outline: 'none', boxSizing: 'border-box'
-                }}/>
-            </div>
-            <div style={{ marginBottom: 8 }}>
-              <label style={{ fontSize: 12, color: '#3b5e8a', display: 'block', marginBottom: 6 }}>
-                Password
-              </label>
-              <input name="password" type="password" placeholder="••••••••"
-                value={form.password} onChange={handleChange} required
-                style={{
-                  width: '100%', background: '#f0f5ff',
-                  border: '1px solid #bfdbfe', borderRadius: 8,
-                  padding: '10px 14px', fontSize: 13, color: '#0c1e3d',
-                  outline: 'none', boxSizing: 'border-box'
-                }}/>
+              <div className="relative">
+                <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-primary-container text-xl">
+                  mail
+                </span>
+                <input name="email" type="email"
+                  placeholder="student@vitap.ac.in"
+                  value={form.email} onChange={handleChange} required
+                  className="w-full pl-11 pr-4 py-3 bg-[#e8f0fe] border border-[#bfdbfe] rounded-lg focus:ring-2 focus:ring-secondary/20 focus:border-secondary transition-all outline-none text-on-surface font-medium placeholder:text-on-primary-container/50"/>
+              </div>
             </div>
 
-            <div style={{ textAlign: 'right', marginBottom: 20 }}>
-              <Link to="/forgot-password" style={{ fontSize: 12, color: '#2563eb', textDecoration: 'none' }}>
-                Forgot password?
-              </Link>
+            <div className="space-y-2">
+              <div className="flex justify-between items-center">
+                <label className="block text-xs font-semibold uppercase tracking-wider text-on-primary-container">
+                  Password
+                </label>
+                <Link to="/forgot-password"
+                  className="text-xs font-semibold text-secondary hover:underline">
+                  Forgot password?
+                </Link>
+              </div>
+              <div className="relative">
+                <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-primary-container text-xl">
+                  lock
+                </span>
+                <input name="password" type="password"
+                  placeholder="••••••••"
+                  value={form.password} onChange={handleChange} required
+                  className="w-full pl-11 pr-4 py-3 bg-[#e8f0fe] border border-[#bfdbfe] rounded-lg focus:ring-2 focus:ring-secondary/20 focus:border-secondary transition-all outline-none text-on-surface font-medium"/>
+              </div>
             </div>
 
-            <button type="submit" disabled={loading} style={{
-              width: '100%', background: '#0c1e3d', color: '#e8f0fe',
-              border: 'none', borderRadius: 8, padding: '12px',
-              fontSize: 14, fontWeight: 600, cursor: 'pointer',
-              opacity: loading ? 0.6 : 1
-            }}>
-              {loading ? 'Logging in...' : 'Log in'}
-            </button>
+            <div className="pt-2">
+              <button type="submit" disabled={loading}
+                className="w-full bg-primary-container text-white font-headline font-bold py-4 rounded-lg hover:bg-primary transition-all shadow-lg active:scale-[0.98] duration-150 disabled:opacity-60">
+                {loading ? 'Logging in...' : 'Log in'}
+              </button>
+            </div>
           </form>
 
-          <p style={{ textAlign: 'center', fontSize: 13, color: '#3b5e8a', marginTop: 20 }}>
-            Don't have an account?{' '}
-            <Link to="/signup" style={{ color: '#2563eb', fontWeight: 600, textDecoration: 'none' }}>
+          <div className="mt-8 p-4 bg-surface-container-low rounded-xl flex gap-3 items-start">
+            <span className="material-symbols-outlined text-secondary text-xl">info</span>
+            <p className="text-xs text-on-surface-variant leading-relaxed">
+              You will be automatically redirected to your role-specific dashboard upon successful authentication.
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-8 text-center">
+          <p className="text-sm text-on-surface-variant">
+            New to CampusRide?{' '}
+            <Link to="/signup" className="text-secondary font-semibold hover:underline ml-1">
               Sign up
             </Link>
           </p>
         </div>
+
+        <div className="mt-16 text-center opacity-40">
+          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-on-primary-container">
+            VIT AP · Digital Transit Ecosystem
+          </p>
+        </div>
       </div>
+
+      <div className="fixed -bottom-24 -left-24 w-96 h-96 bg-secondary/5 rounded-full blur-3xl pointer-events-none"/>
+      <div className="fixed -top-24 -right-24 w-96 h-96 bg-primary-container/5 rounded-full blur-3xl pointer-events-none"/>
     </div>
   );
 }

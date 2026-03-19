@@ -22,64 +22,76 @@ export default function Navbar() {
   };
 
   return (
-    <nav style={{
-      background: '#0c1e3d',
-      padding: '14px 24px',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      position: 'sticky',
-      top: 0,
-      zIndex: 50,
-    }}>
-      <Link to="/" style={{
-        fontSize: 18, fontWeight: 700, color: '#e8f0fe',
-        textDecoration: 'none', letterSpacing: '-0.3px'
+    <nav className="fixed top-0 w-full z-50 flex justify-between items-center h-16 px-6 md:px-12 font-headline font-semibold tracking-tight"
+      style={{
+        background: 'rgba(12, 30, 61, 0.85)',
+        backdropFilter: 'blur(12px)',
+        boxShadow: '0 4px 20px rgba(0,5,22,0.2)'
       }}>
-        CampusRide
-      </Link>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
-        {user?.role === 'RENTER' && <>
-          <Link to="/browse" style={{ fontSize: 13, color: '#7aa3d4', textDecoration: 'none' }}>Browse</Link>
-          <Link to="/my-bookings" style={{ fontSize: 13, color: '#7aa3d4', textDecoration: 'none' }}>My Bookings</Link>
-        </>}
-        {user?.role === 'OWNER' && <>
-          <Link to="/owner/dashboard" style={{ fontSize: 13, color: '#7aa3d4', textDecoration: 'none' }}>Dashboard</Link>
-          <Link to="/owner/listings" style={{ fontSize: 13, color: '#7aa3d4', textDecoration: 'none' }}>My Bikes</Link>
-        </>}
-        {user?.role === 'ADMIN' && (
-          <Link to="/admin/dashboard" style={{ fontSize: 13, color: '#7aa3d4', textDecoration: 'none' }}>Admin</Link>
-        )}
+      <div className="flex items-center gap-8">
+        <Link to="/" className="text-2xl font-bold text-white tracking-tighter no-underline"
+          style={{ textDecoration: 'none' }}>
+          CampusRide
+        </Link>
 
-        <Link to="/notifications" style={{
-          fontSize: 13, color: '#7aa3d4',
-          textDecoration: 'none', position: 'relative'
-        }}>
-          Notifications
+        <div className="hidden md:flex gap-2 items-center">
+          {user?.role === 'RENTER' && <>
+            <Link to="/browse"
+              className="text-slate-300 hover:text-white hover:bg-white/10 rounded-lg px-3 py-1 transition-all text-sm"
+              style={{ textDecoration: 'none' }}>
+              Browse
+            </Link>
+            <Link to="/my-bookings"
+              className="text-slate-300 hover:text-white hover:bg-white/10 rounded-lg px-3 py-1 transition-all text-sm"
+              style={{ textDecoration: 'none' }}>
+              My Bookings
+            </Link>
+          </>}
+          {user?.role === 'OWNER' && <>
+            <Link to="/owner/dashboard"
+              className="text-slate-300 hover:text-white hover:bg-white/10 rounded-lg px-3 py-1 transition-all text-sm"
+              style={{ textDecoration: 'none' }}>
+              Dashboard
+            </Link>
+            <Link to="/owner/listings"
+              className="text-slate-300 hover:text-white hover:bg-white/10 rounded-lg px-3 py-1 transition-all text-sm"
+              style={{ textDecoration: 'none' }}>
+              Listings
+            </Link>
+          </>}
+          {user?.role === 'ADMIN' && (
+            <Link to="/admin/dashboard"
+              className="text-slate-300 hover:text-white hover:bg-white/10 rounded-lg px-3 py-1 transition-all text-sm"
+              style={{ textDecoration: 'none' }}>
+              Admin
+            </Link>
+          )}
+        </div>
+      </div>
+
+      <div className="flex items-center gap-2">
+        <Link to="/notifications"
+          className="relative p-2 text-slate-300 hover:text-white hover:bg-white/10 rounded-lg transition-all"
+          style={{ textDecoration: 'none' }}>
+          <span className="material-symbols-outlined">notifications</span>
           {unread > 0 && (
-            <span style={{
-              position: 'absolute', top: -8, right: -10,
-              background: '#2563eb', color: '#fff',
-              fontSize: 9, fontWeight: 700,
-              borderRadius: '50%', width: 16, height: 16,
-              display: 'flex', alignItems: 'center', justifyContent: 'center'
-            }}>
-              {unread}
-            </span>
+            <span className="absolute top-1 right-1 w-2 h-2 bg-secondary rounded-full"/>
           )}
         </Link>
 
-        <Link to="/profile" style={{ fontSize: 13, color: '#7aa3d4', textDecoration: 'none' }}>
-          Profile
+        <Link to="/profile"
+          className="p-2 text-slate-300 hover:text-white hover:bg-white/10 rounded-lg transition-all"
+          style={{ textDecoration: 'none' }}>
+          <span className="material-symbols-outlined">account_circle</span>
         </Link>
 
-        <button onClick={handleLogout} style={{
-          fontSize: 13, color: '#f87171', background: 'none',
-          border: 'none', cursor: 'pointer', padding: 0
-        }}>
-          Logout
-        </button>
+        {user && (
+          <button onClick={handleLogout}
+            className="ml-2 text-sm text-red-400 hover:text-red-300 hover:bg-white/10 rounded-lg px-3 py-1 transition-all font-medium">
+            Logout
+          </button>
+        )}
       </div>
     </nav>
   );
