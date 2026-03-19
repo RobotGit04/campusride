@@ -1,161 +1,235 @@
 import { Link } from 'react-router-dom';
 
+const Footer = () => (
+  <footer className="w-full py-12 border-t border-[#dbe3f1] bg-[#f8f9ff]">
+    <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div className="flex flex-col gap-2">
+        <span className="font-headline font-bold text-primary-container text-xl block mb-2">CampusRide</span>
+        <p className="font-body text-xs text-slate-500 leading-relaxed">
+          Transforming the way students move across VIT AP. Efficiency meets sustainability in every pedal.
+        </p>
+      </div>
+      {[
+        { title: 'Platform', links: ['Browse Bikes', 'Pricing', 'Campus Map'] },
+        { title: 'Support', links: ['Help Center', 'Privacy Policy', 'Terms of Service'] },
+        { title: 'Connect', links: ['ACM Student Chapter · VIT AP University'] },
+      ].map(col => (
+        <div key={col.title}>
+          <h4 className="font-headline font-bold text-xs uppercase tracking-widest text-primary-container mb-4">
+            {col.title}
+          </h4>
+          <div className="flex flex-col gap-2">
+            {col.links.map(link => (
+              <a key={link} href="#"
+                className="text-xs text-slate-500 hover:text-primary-container transition-colors">
+                {link}
+              </a>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+    <div className="max-w-7xl mx-auto px-6 mt-8 pt-6 border-t border-[#dbe3f1] flex justify-between items-center">
+      <p className="text-xs text-slate-400">© 2025 CampusRide VIT AP. The Scholarly Kinetic.</p>
+      <span className="text-xs text-green-500 font-semibold flex items-center gap-1">
+        <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse inline-block"/>
+        All systems operational
+      </span>
+    </div>
+  </footer>
+);
+
 export default function Landing() {
   return (
-    <div style={{ minHeight: '100vh', background: '#f0f5ff' }}>
+    <div className="bg-background font-body text-on-background min-h-screen">
 
-      <nav style={{
-        background: '#0c1e3d',
-        padding: '14px 24px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        position: 'sticky',
-        top: 0,
-        zIndex: 50,
-      }}>
-        <span style={{ fontSize: 18, fontWeight: 700, color: '#e8f0fe', letterSpacing: '-0.3px' }}>
-          CampusRide
-        </span>
-        <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-          <Link to="/login" style={{ fontSize: 13, color: '#7aa3d4', textDecoration: 'none' }}>
-            Log in
+      {/* Navbar */}
+      <nav className="fixed top-0 w-full z-50 flex justify-between items-center h-16 px-6 md:px-12 font-headline font-semibold tracking-tight"
+        style={{ background: 'rgba(12,30,61,0.9)', backdropFilter: 'blur(12px)', boxShadow: '0 4px 20px rgba(0,5,22,0.2)' }}>
+        <div className="flex items-center gap-8">
+          <span className="text-2xl font-bold text-white tracking-tighter">CampusRide</span>
+          <div className="hidden md:flex gap-2">
+            <Link to="/browse" className="text-slate-300 hover:text-white hover:bg-white/10 rounded-lg px-3 py-1 transition-all text-sm" style={{ textDecoration: 'none' }}>Browse</Link>
+            <a href="#" className="text-slate-300 hover:text-white hover:bg-white/10 rounded-lg px-3 py-1 transition-all text-sm" style={{ textDecoration: 'none' }}>My Bookings</a>
+            <a href="#" className="text-slate-300 hover:text-white hover:bg-white/10 rounded-lg px-3 py-1 transition-all text-sm" style={{ textDecoration: 'none' }}>Dashboard</a>
+          </div>
+        </div>
+        <div className="flex items-center gap-3">
+          <Link to="/login" className="text-slate-300 hover:text-white text-sm font-medium px-3 py-1 transition-all" style={{ textDecoration: 'none' }}>
+            Login
           </Link>
-          <Link to="/signup" style={{
-            fontSize: 13, fontWeight: 600, padding: '7px 18px',
-            borderRadius: 8, background: '#2563eb', color: '#fff',
-            textDecoration: 'none'
-          }}>
-            Get started
+          <Link to="/signup" className="bg-secondary text-white text-sm font-bold px-5 py-2 rounded-lg hover:bg-primary-container transition-all" style={{ textDecoration: 'none' }}>
+            Get Started
           </Link>
+          <button className="p-2 text-slate-300 hover:bg-white/10 rounded-lg transition-all">
+            <span className="material-symbols-outlined text-xl">notifications</span>
+          </button>
         </div>
       </nav>
 
-      <div style={{ maxWidth: 960, margin: '0 auto', padding: '60px 24px 40px' }}>
-        <div style={{ textAlign: 'center', marginBottom: 48 }}>
-          <span style={{
-            display: 'inline-block', fontSize: 12, fontWeight: 600,
-            background: '#bfdbfe', color: '#0c1e3d', padding: '4px 14px',
-            borderRadius: 20, marginBottom: 16, letterSpacing: '0.03em'
-          }}>
-            Built for VIT AP University
-          </span>
-          <h1 style={{
-            fontSize: 48, fontWeight: 800, color: '#0c1e3d',
-            lineHeight: 1.2, marginBottom: 16
-          }}>
-            Rent a bike.<br/>
-            <span style={{ color: '#2563eb' }}>Explore campus life.</span>
-          </h1>
-          <p style={{
-            fontSize: 16, color: '#3b5e8a', lineHeight: 1.7,
-            maxWidth: 520, margin: '0 auto 32px'
-          }}>
-            CampusRide connects students who need bikes with owners who have them.
-            Real-time booking, transparent pricing, zero hassle.
-          </p>
-          <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link to="/signup" style={{
-              fontSize: 14, fontWeight: 600, padding: '12px 28px',
-              borderRadius: 10, background: '#0c1e3d', color: '#e8f0fe',
-              textDecoration: 'none'
-            }}>
-              Find a bike
-            </Link>
-            <Link to="/signup" style={{
-              fontSize: 14, fontWeight: 600, padding: '12px 28px',
-              borderRadius: 10, background: 'transparent', color: '#0c1e3d',
-              border: '1.5px solid #1e40af', textDecoration: 'none'
-            }}>
-              List your bike
-            </Link>
+      {/* Hero */}
+      <section className="pt-16 min-h-screen flex items-center"
+        style={{ background: 'linear-gradient(135deg, #0c1e3d 0%, #1a2f52 60%, #0f1f3d 100%)' }}>
+        <div className="max-w-7xl mx-auto px-6 md:px-12 py-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center w-full">
+          <div>
+            <span className="inline-block bg-secondary/20 text-blue-300 text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-6 border border-secondary/30">
+              Built for VIT AP University
+            </span>
+            <h1 className="font-headline text-5xl md:text-6xl font-extrabold text-white leading-tight mb-4">
+              Rent a bike.<br/>
+              <span className="text-secondary">Explore</span> campus life.
+            </h1>
+            <p className="text-slate-400 text-lg leading-relaxed mb-8 max-w-lg">
+              The premier cycling ecosystem for students and faculty. Turn your idle bicycle into earnings or navigate the VIT AP campus with academic velocity.
+            </p>
+            <div className="flex gap-4 flex-wrap">
+              <Link to="/signup"
+                className="bg-secondary text-white font-headline font-bold px-8 py-4 rounded-lg hover:bg-blue-600 transition-all flex items-center gap-2 active:scale-95"
+                style={{ textDecoration: 'none' }}>
+                Find a bike
+                <span className="material-symbols-outlined text-lg">arrow_forward</span>
+              </Link>
+              <Link to="/signup"
+                className="border border-slate-500 text-white font-headline font-semibold px-8 py-4 rounded-lg hover:bg-white/10 transition-all"
+                style={{ textDecoration: 'none' }}>
+                List your bike
+              </Link>
+            </div>
+          </div>
+
+          <div className="relative hidden md:block">
+            <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-4 border border-white/10">
+              <div className="bg-surface-container-low rounded-xl h-64 flex items-center justify-center">
+                <span className="material-symbols-outlined text-9xl text-secondary opacity-50">
+                  directions_bike
+                </span>
+              </div>
+              <div className="absolute bottom-8 left-8 bg-white rounded-xl px-4 py-3 flex items-center gap-3 shadow-xl">
+                <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
+                  <span className="material-symbols-outlined text-white text-sm">directions_bike</span>
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-on-surface">Standard MTB</p>
+                  <p className="text-[10px] text-green-500 font-medium">Available near Block 1</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+      </section>
 
-        <div style={{
-          background: '#0c1e3d', borderRadius: 16,
-          padding: '20px 32px', display: 'flex',
-          justifyContent: 'space-around', flexWrap: 'wrap',
-          gap: 16, marginBottom: 48
-        }}>
+      {/* Stats Bar */}
+      <section className="bg-primary py-6">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-6">
           {[
-            { num: '120+', label: 'Bikes listed' },
-            { num: '800+', label: 'Students served' },
-            { num: '4.8★', label: 'Avg rating' },
-            { num: '₹0', label: 'Hidden fees' },
+            { num: '120+', label: 'Active Bikes' },
+            { num: '800+', label: 'Students' },
+            { num: '4.8★', label: 'Student Rating' },
+            { num: '₹0', label: 'Hidden Fees' },
           ].map(s => (
-            <div key={s.label} style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: 24, fontWeight: 700, color: '#60a5fa' }}>{s.num}</div>
-              <div style={{ fontSize: 11, color: '#7aa3d4', marginTop: 2 }}>{s.label}</div>
+            <div key={s.label} className="text-center">
+              <div className="font-headline text-3xl font-extrabold text-secondary">{s.num}</div>
+              <div className="text-xs uppercase tracking-widest text-slate-400 mt-1">{s.label}</div>
             </div>
           ))}
         </div>
+      </section>
 
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-          gap: 16, marginBottom: 48
-        }}>
-          {[
-            {
-              icon: '📅',
-              title: 'Real-time availability',
-              desc: 'See which bikes are available right now. No more guessing or word of mouth.'
-            },
-            {
-              icon: '🔒',
-              title: 'Secure bookings',
-              desc: 'Digital receipts, booking history and a trust system that protects both sides.'
-            },
-            {
-              icon: '💰',
-              title: 'Transparent pricing',
-              desc: 'Know exactly what you pay. No hidden fees, no surprises at pickup.'
-            },
-          ].map(f => (
-            <div key={f.title} style={{
-              background: '#fff', borderRadius: 14,
-              border: '0.5px solid #bfdbfe', padding: '24px'
-            }}>
-              <div style={{ fontSize: 28, marginBottom: 12 }}>{f.icon}</div>
-              <h3 style={{ fontSize: 15, fontWeight: 700, color: '#0c1e3d', marginBottom: 8 }}>
-                {f.title}
-              </h3>
-              <p style={{ fontSize: 13, color: '#3b5e8a', lineHeight: 1.6 }}>{f.desc}</p>
-            </div>
-          ))}
-        </div>
-
-        <div style={{
-          background: '#0c1e3d', borderRadius: 16,
-          padding: '40px 32px', textAlign: 'center'
-        }}>
-          <h2 style={{ fontSize: 28, fontWeight: 700, color: '#e8f0fe', marginBottom: 12 }}>
-            Ready to ride?
+      {/* Features */}
+      <section className="py-24 bg-surface-container-low">
+        <div className="max-w-7xl mx-auto px-6">
+          <h2 className="font-headline text-4xl font-bold text-primary tracking-tight mb-3">
+            Redefining Campus Mobility
           </h2>
-          <p style={{ fontSize: 14, color: '#7aa3d4', marginBottom: 24 }}>
-            Join hundreds of VIT AP students already using CampusRide.
-          </p>
-          <Link to="/signup" style={{
-            fontSize: 14, fontWeight: 600, padding: '12px 32px',
-            borderRadius: 10, background: '#2563eb', color: '#fff',
-            textDecoration: 'none', display: 'inline-block'
-          }}>
-            Create free account
-          </Link>
-        </div>
-      </div>
+          <div className="w-16 h-1 bg-secondary rounded-full mb-12"/>
 
-      <footer style={{
-        borderTop: '0.5px solid #bfdbfe',
-        padding: '24px',
-        textAlign: 'center',
-        fontSize: 12,
-        color: '#7aa3d4',
-        background: '#f0f5ff'
-      }}>
-        CampusRide · Built for VIT AP University · ACM Student Chapter
-      </footer>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: 'location_on',
+                title: 'Real-time availability',
+                desc: 'Locate the nearest bicycle instantly via our interactive campus map. No more guessing where your next ride is.',
+                link: 'Explore Map'
+              },
+              {
+                icon: 'verified_user',
+                title: 'Secure bookings',
+                desc: 'OTP-verified booking system ensures only authorized students access the fleet, keeping every journey safe.',
+                link: 'Trust Center'
+              },
+              {
+                icon: 'payments',
+                title: 'Transparent pricing',
+                desc: 'Simple hourly rates with no deposits. What you see is exactly what you pay from your student wallet.',
+                link: 'View Rates'
+              },
+            ].map(f => (
+              <div key={f.title}
+                className="bg-surface-container-lowest p-8 rounded-xl border border-outline-variant/10 hover:shadow-lg transition-all">
+                <div className="w-10 h-10 bg-surface-container-low rounded-lg flex items-center justify-center mb-6">
+                  <span className="material-symbols-outlined text-secondary">{f.icon}</span>
+                </div>
+                <h3 className="font-headline font-bold text-lg text-on-surface mb-3">{f.title}</h3>
+                <p className="text-on-surface-variant text-sm leading-relaxed mb-4">{f.desc}</p>
+                <a href="#" className="text-secondary text-sm font-semibold flex items-center gap-1 hover:gap-2 transition-all" style={{ textDecoration: 'none' }}>
+                  {f.link}
+                  <span className="material-symbols-outlined text-sm">chevron_right</span>
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Bento Grid */}
+      <section className="py-24 bg-background">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="md:col-span-2 rounded-2xl overflow-hidden relative min-h-64 bg-primary-container flex items-end p-8">
+            <div className="absolute top-6 right-6 bg-secondary text-white text-xs font-bold px-3 py-1 rounded-full">
+              24/7 SUPPORT
+            </div>
+            <div>
+              <h3 className="font-headline text-2xl font-bold text-white mb-2">Widespread Campus Coverage</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                From Central Library to Hostels, our network spans every corner of the VIT AP ecosystem. Park anywhere in designated zones.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-6">
+            <div className="bg-secondary rounded-2xl p-6 flex flex-col gap-3">
+              <span className="material-symbols-outlined text-white text-3xl">bolt</span>
+              <h3 className="font-headline font-bold text-white text-lg">Instant Unlock</h3>
+              <p className="text-blue-200 text-sm">Scan QR and ride in under 10 seconds. Academic speed redefined.</p>
+            </div>
+            <div className="bg-surface-container-lowest rounded-2xl p-6 flex flex-col gap-3 border border-outline-variant/10">
+              <span className="material-symbols-outlined text-green-500 text-3xl">eco</span>
+              <h3 className="font-headline font-bold text-on-surface text-lg">Green Transit</h3>
+              <p className="text-on-surface-variant text-sm">Join 800+ students in reducing the campus carbon footprint.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-24 bg-primary-container mx-6 md:mx-12 rounded-2xl mb-12">
+        <div className="text-center px-6">
+          <h2 className="font-headline text-4xl font-extrabold text-white mb-4">Ready to ride?</h2>
+          <p className="text-slate-400 text-lg mb-8 max-w-lg mx-auto">
+            Join the scholarship-speed movement. Sign up through your VIT AP institutional ID today.
+          </p>
+          <div className="flex items-center justify-center gap-4 flex-wrap">
+            <Link to="/signup"
+              className="bg-secondary text-white font-headline font-bold px-10 py-4 rounded-lg hover:bg-blue-600 transition-all"
+              style={{ textDecoration: 'none' }}>
+              Get Started Now
+            </Link>
+            <span className="text-slate-500 text-sm">No paperwork required.</span>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
     </div>
   );
 }
