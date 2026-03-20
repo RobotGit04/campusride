@@ -76,7 +76,7 @@ export default function Signup() {
                 <label className="block font-headline font-semibold text-xs text-on-surface-variant uppercase tracking-wider mb-1.5 ml-1">
                   Full Name
                 </label>
-                <input name="name" type="text" placeholder="Alex Rivers"
+                <input name="name" type="text" placeholder="Your full name"
                   value={form.name} onChange={handleChange} required
                   className="w-full bg-surface-container border-0 rounded-lg py-3.5 px-4 text-on-surface placeholder:text-outline focus:ring-2 focus:ring-secondary/10 outline-none transition-all"/>
               </div>

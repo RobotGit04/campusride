@@ -99,8 +99,8 @@ export default function Profile() {
 
               <div className="pt-4 flex justify-end">
                 <button type="submit" disabled={loading}
-                  className="bg-primary-container text-white px-8 py-3 rounded-lg font-semibold flex items-center gap-2 hover:bg-secondary transition-all active:scale-95 disabled:opacity-60"
-                  style={{ boxShadow: '0 4px 12px rgba(12,30,61,0.2)' }}>
+                  className="px-8 py-3 rounded-lg font-semibold flex items-center gap-2 text-white hover:opacity-90 transition-all active:scale-95 disabled:opacity-60"
+                  style={{ background: '#0c1e3d', boxShadow: '0 4px 12px rgba(12,30,61,0.2)' }}>
                   {loading ? 'Saving...' : 'Save changes'}
                   <span className="material-symbols-outlined text-lg">save</span>
                 </button>
@@ -109,23 +109,22 @@ export default function Profile() {
           </div>
 
           <div className="space-y-6">
-            <div className="bg-primary-container text-white p-6 rounded-[14px]"
-              style={{ boxShadow: '0 4px 16px rgba(12,30,61,0.1)' }}>
-              <h3 className="font-headline text-sm font-bold uppercase tracking-widest mb-4 opacity-70">
-                Scholarly Motion
+            <div className="p-6 rounded-[14px]" style={{ background: '#0c1e3d', boxShadow: '0 4px 16px rgba(12,30,61,0.1)' }}>
+              <h3 className="font-headline text-sm font-bold uppercase tracking-widest mb-4 text-white opacity-70">
+                Ride with Campus
               </h3>
               <div className="space-y-4">
-                <div className="flex items-center justify-between border-b border-white/10 pb-2">
-                  <span className="text-xs opacity-80">Role</span>
-                  <span className="font-bold">{user?.role}</span>
+                <div className="flex items-center justify-between border-b pb-2" style={{ borderColor: 'rgba(255,255,255,0.1)' }}>
+                  <span className="text-xs text-white opacity-80">Role</span>
+                  <span className="font-bold text-white">{user?.role}</span>
                 </div>
-                <div className="flex items-center justify-between border-b border-white/10 pb-2">
-                  <span className="text-xs opacity-80">Status</span>
+                <div className="flex items-center justify-between border-b pb-2" style={{ borderColor: 'rgba(255,255,255,0.1)' }}>
+                  <span className="text-xs text-white opacity-80">Status</span>
                   <span className="font-bold text-green-400">Active</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-xs opacity-80">Platform</span>
-                  <span className="font-bold">CampusRide</span>
+                  <span className="text-xs text-white opacity-80">Platform</span>
+                  <span className="font-bold text-white">CampusRide</span>
                 </div>
               </div>
             </div>
@@ -163,7 +162,7 @@ export default function Profile() {
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <span className="font-headline font-bold text-primary-container text-lg">CampusRide VIT AP</span>
           <p className="font-body text-xs uppercase tracking-widest text-slate-500">
-            © 2025 CampusRide VIT AP. Scholarly Kinetic Excellence.
+            CAMPUSRIDE ECOSYSTEM
           </p>
         </div>
       </footer>

@@ -148,71 +148,82 @@ export default function Landing() {
               {
                 icon: 'location_on',
                 title: 'Real-time availability',
-                desc: 'Locate the nearest bicycle instantly via our interactive campus map. No more guessing where your next ride is.',
+                desc: 'Locate the nearest bicycle instantly via our interactive campus map.',
                 link: 'Explore Map'
               },
               {
                 icon: 'verified_user',
                 title: 'Secure bookings',
-                desc: 'OTP-verified booking system ensures only authorized students access the fleet, keeping every journey safe.',
+                desc: 'OTP-verified booking system ensures only authorized students access the fleet.',
                 link: 'Trust Center'
               },
               {
                 icon: 'payments',
                 title: 'Transparent pricing',
-                desc: 'Simple hourly rates with no deposits. What you see is exactly what you pay from your student wallet.',
+                desc: 'Simple hourly rates with no deposits. What you see is exactly what you pay.',
                 link: 'View Rates'
               },
             ].map(f => (
               <div key={f.title}
-                className="bg-surface-container-lowest p-8 rounded-xl border border-outline-variant/10 hover:shadow-lg transition-all">
-                <div className="w-10 h-10 bg-surface-container-low rounded-lg flex items-center justify-center mb-6">
-                  <span className="material-symbols-outlined text-secondary">{f.icon}</span>
+                className="p-8 rounded-xl border border-slate-200 hover:shadow-lg transition-all"
+                style={{ background: '#ffffff' }}>
+                <div className="w-10 h-10 rounded-lg flex items-center justify-center mb-6"
+                  style={{ background: '#eef4ff' }}>
+                  <span className="material-symbols-outlined" style={{ color: '#0051d5' }}>{f.icon}</span>
                 </div>
-                <h3 className="font-headline font-bold text-lg text-on-surface mb-3">{f.title}</h3>
-                <p className="text-on-surface-variant text-sm leading-relaxed mb-4">{f.desc}</p>
-                <a href="#" className="text-secondary text-sm font-semibold flex items-center gap-1 hover:gap-2 transition-all" style={{ textDecoration: 'none' }}>
+                <h3 className="font-headline font-bold text-lg mb-3" style={{ color: '#141c26' }}>{f.title}</h3>
+                <p className="text-sm leading-relaxed mb-4" style={{ color: '#44474e' }}>{f.desc}</p>
+                <a href="#" className="text-sm font-semibold flex items-center gap-1"
+                  style={{ color: '#0051d5', textDecoration: 'none' }}>
                   {f.link}
                   <span className="material-symbols-outlined text-sm">chevron_right</span>
                 </a>
-              </div>
-            ))}
+                </div>
+            ))}      
           </div>
         </div>
       </section>
 
       {/* Bento Grid */}
+      
       <section className="py-24 bg-background">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="md:col-span-2 rounded-2xl overflow-hidden relative min-h-64 bg-primary-container flex items-end p-8">
-            <div className="absolute top-6 right-6 bg-secondary text-white text-xs font-bold px-3 py-1 rounded-full">
+          <div className="md:col-span-2 rounded-2xl overflow-hidden relative min-h-64 flex items-end p-8"
+            style={{ background: '#0c1e3d' }}>
+            <div className="absolute top-6 right-6 bg-secondary text-white text-xs font-bold px-3 py-1 rounded-full"
+              style={{ background: '#0051d5' }}>
               24/7 SUPPORT
             </div>
             <div>
-              <h3 className="font-headline text-2xl font-bold text-white mb-2">Widespread Campus Coverage</h3>
+              <h3 className="font-headline text-2xl font-bold text-white mb-2">
+                Widespread Campus Coverage
+              </h3>
               <p className="text-slate-400 text-sm leading-relaxed">
-                From Central Library to Hostels, our network spans every corner of the VIT AP ecosystem. Park anywhere in designated zones.
+                From Central Library to Hostels, our network spans every corner of the VIT AP ecosystem.
               </p>
             </div>
           </div>
 
           <div className="flex flex-col gap-6">
-            <div className="bg-secondary rounded-2xl p-6 flex flex-col gap-3">
+            <div className="rounded-2xl p-6 flex flex-col gap-3" style={{ background: '#0051d5' }}>
               <span className="material-symbols-outlined text-white text-3xl">bolt</span>
               <h3 className="font-headline font-bold text-white text-lg">Instant Unlock</h3>
-              <p className="text-blue-200 text-sm">Scan QR and ride in under 10 seconds. Academic speed redefined.</p>
+              <p className="text-blue-200 text-sm">Scan QR and ride in under 10 seconds.</p>
             </div>
-            <div className="bg-surface-container-lowest rounded-2xl p-6 flex flex-col gap-3 border border-outline-variant/10">
+            <div className="rounded-2xl p-6 flex flex-col gap-3 border border-slate-200"
+              style={{ background: '#ffffff' }}>
               <span className="material-symbols-outlined text-green-500 text-3xl">eco</span>
-              <h3 className="font-headline font-bold text-on-surface text-lg">Green Transit</h3>
-              <p className="text-on-surface-variant text-sm">Join 800+ students in reducing the campus carbon footprint.</p>
+              <h3 className="font-headline font-bold text-lg" style={{ color: '#141c26' }}>Green Transit</h3>
+              <p className="text-sm" style={{ color: '#44474e' }}>
+                Join 800+ students in reducing the campus carbon footprint.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="py-24 bg-primary-container mx-6 md:mx-12 rounded-2xl mb-12">
+      <section className="py-24 mx-6 md:mx-12 rounded-2xl mb-12" style={{ background: '#0c1e3d' }}>
         <div className="text-center px-6">
           <h2 className="font-headline text-4xl font-extrabold text-white mb-4">Ready to ride?</h2>
           <p className="text-slate-400 text-lg mb-8 max-w-lg mx-auto">
@@ -220,8 +231,8 @@ export default function Landing() {
           </p>
           <div className="flex items-center justify-center gap-4 flex-wrap">
             <Link to="/signup"
-              className="bg-secondary text-white font-headline font-bold px-10 py-4 rounded-lg hover:bg-blue-600 transition-all"
-              style={{ textDecoration: 'none' }}>
+              className="text-white font-headline font-bold px-10 py-4 rounded-lg transition-all"
+              style={{ background: '#0051d5', textDecoration: 'none' }}>
               Get Started Now
             </Link>
             <span className="text-slate-500 text-sm">No paperwork required.</span>
