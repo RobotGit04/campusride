@@ -38,12 +38,9 @@ export default function Login() {
           <h1 className="font-headline text-4xl font-extrabold tracking-tight italic text-primary-container">
             CampusRide
           </h1>
-          <p className="mt-3 text-on-surface-variant font-medium">
-            The Scholarly Kinetic
-          </p>
         </div>
 
-        <div className="w-full bg-surface-container-lowest rounded-[16px] p-8 md:p-10 border border-[#bfdbfe]"
+        <div className="w-full bg-surface-container-lowest rounded-2xl p-8 md:p-10 border border-[#bfdbfe]"
           style={{ boxShadow: '0 20px 50px -12px rgba(12,30,61,0.08)' }}>
 
           <div className="mb-8">
@@ -90,9 +87,10 @@ export default function Login() {
 
             <div className="pt-2">
               <button type="submit" disabled={loading}
-                className="w-full bg-primary-container text-white font-headline font-bold py-4 rounded-lg hover:bg-primary transition-all shadow-lg active:scale-[0.98] duration-150 disabled:opacity-60">
+                style={{ background: '#0c1e3d' }}
+                className="w-full text-white font-headline font-bold py-4 rounded-lg transition-all shadow-lg active:scale-[0.98] duration-150 disabled:opacity-60">
                 {loading ? 'Logging in...' : 'Log in'}
-              </button>
+</button>
             </div>
           </form>
 
@@ -115,7 +113,7 @@ export default function Login() {
 
         <div className="mt-16 text-center opacity-40">
           <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-on-primary-container">
-            VIT AP · Digital Transit Ecosystem
+           CampusRide Ecosystem
           </p>
         </div>
       </div>
