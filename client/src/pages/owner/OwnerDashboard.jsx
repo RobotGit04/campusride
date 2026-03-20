@@ -261,8 +261,8 @@ export default function OwnerDashboard() {
 
       <footer className="w-full py-12 px-8 border-t border-[#dbe3f1]/20 bg-[#f8f9ff]">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-          <span className="text-lg font-bold text-primary font-headline">CampusRide VIT AP</span>
-          <p className="font-body text-sm text-slate-500">© 2025 CampusRide VIT AP. The Scholarly Kinetic.</p>
+          <span className="text-lg font-bold text-primary font-headline">CampusRide with VIT AP</span>
+          <p className="font-body text-sm text-slate-500">CAMPUSRIDE ECOSYSTEM</p>
         </div>
       </footer>
     </div>
