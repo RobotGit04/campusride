@@ -12,7 +12,7 @@ const Footer = () => (
       {[
         { title: 'Platform', links: ['Browse Bikes', 'Pricing', 'Campus Map'] },
         { title: 'Support', links: ['Help Center', 'Privacy Policy', 'Terms of Service'] },
-        { title: 'Connect', links: ['ACM Student Chapter · VIT AP University'] },
+        { title: 'Connect', links: ['VIT AP University'] },
       ].map(col => (
         <div key={col.title}>
           <h4 className="font-headline font-bold text-xs uppercase tracking-widest text-primary-container mb-4">
@@ -30,7 +30,7 @@ const Footer = () => (
       ))}
     </div>
     <div className="max-w-7xl mx-auto px-6 mt-8 pt-6 border-t border-[#dbe3f1] flex justify-between items-center">
-      <p className="text-xs text-slate-400">© 2025 CampusRide VIT AP. The Scholarly Kinetic.</p>
+      <p className="text-xs text-slate-400">CampusRide.Ride like a breeze</p>
       <span className="text-xs text-green-500 font-semibold flex items-center gap-1">
         <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse inline-block"/>
         All systems operational
