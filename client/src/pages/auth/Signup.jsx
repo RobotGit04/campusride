@@ -43,7 +43,7 @@ export default function Signup() {
           </p>
         </div>
 
-        <div className="bg-surface-container-lowest border border-[#bfdbfe] rounded-[16px] p-8 md:p-10"
+        <div className="bg-surface-container-lowest border border-[#bfdbfe] rounded-2xl p-8 md:p-10"
           style={{ boxShadow: '0 20px 50px -12px rgba(12,30,61,0.08)' }}>
 
           <form onSubmit={handleSubmit} className="space-y-6">
