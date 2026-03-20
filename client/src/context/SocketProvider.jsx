@@ -11,7 +11,7 @@ export default function SocketProvider({ children }) {
   useEffect(() => {
     if (!user) return;
 
-    socket = io('http://localhost:5000');
+    socket = io(import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5000');
 
     socket.on('connect', () => {
       socket.emit('join_room', user.id);
