@@ -60,11 +60,13 @@ export default function Signup() {
                     onClick={() => setForm({ ...form, role: opt.value })}
                     className={`py-3 px-4 rounded-lg font-headline font-bold text-sm transition-all duration-200 ${
                       form.role === opt.value
-                        ? 'bg-primary-container text-white shadow-md'
-                        : 'text-on-primary-container hover:bg-surface-container-highest'
-                    }`}>
-                    {opt.label}
-                  </button>
+                      ? 'text-white shadow-md'
+                      : 'text-on-primary-container hover:bg-surface-container-highest'
+                    }`}
+                    style={form.role === opt.value ? { background: '#0c1e3d' } : {}}
+                >
+                  {opt.label}
+                </button>
                 ))}
               </div>
             </div>
@@ -113,7 +115,8 @@ export default function Signup() {
             </div>
 
             <button type="submit" disabled={loading}
-              className="w-full bg-primary-container text-white font-headline font-bold py-4 rounded-lg shadow-lg hover:bg-primary transition-all duration-300 active:scale-[0.98] mt-4 disabled:opacity-60">
+              style={{ background: '#0c1e3d' }}
+              className="w-full text-white font-headline font-bold py-4 rounded-lg shadow-lg hover:opacity-90 transition-all duration-300 active:scale-[0.98] mt-4 disabled:opacity-60">
               {loading ? 'Creating account...' : 'Create account'}
             </button>
           </form>
@@ -130,7 +133,7 @@ export default function Signup() {
 
         <footer className="mt-12 text-center">
           <p className="font-body text-xs text-slate-500 tracking-wide">
-            © 2025 CampusRide VIT AP. The Scholarly Kinetic.
+            CampusRide.Ride like a breeze
           </p>
           <div className="flex justify-center gap-6 mt-4">
             <a href="#" className="text-xs text-slate-400 hover:text-secondary transition-colors">
