@@ -67,7 +67,7 @@ export default function OwnerDashboard() {
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
           <div
-            className="bg-surface-container-lowest p-8 rounded-[14px] flex flex-col justify-between h-48 group hover:translate-y-[-4px] transition-all duration-300 border-l-4 border-slate-400"
+            className="bg-surface-container-lowest p-8 rounded-[14px] flex flex-col justify-between h-48 group hover:translate-y-1 transition-all duration-300 border-l-4 border-slate-400"
             style={{ boxShadow: '0 10px 30px -5px rgba(12,30,61,0.06)' }}
           >
             <div className="flex justify-between items-start">
@@ -83,7 +83,7 @@ export default function OwnerDashboard() {
           </div>
 
           <div
-            className="bg-surface-container-lowest p-8 rounded-[14px] flex flex-col justify-between h-48 border-l-4 border-[#16a34a] group hover:translate-y-[-4px] transition-all duration-300"
+            className="bg-surface-container-lowest p-8 rounded-[14px] flex flex-col justify-between h-48 border-l-4 border-[#16a34a] group hover:translate-y-1 transition-all duration-300"
             style={{ boxShadow: '0 10px 30px -5px rgba(12,30,61,0.06)' }}
           >
             <div className="flex justify-between items-start">
@@ -103,7 +103,7 @@ export default function OwnerDashboard() {
           </div>
 
           <div
-            className="bg-surface-container-lowest p-8 rounded-[14px] flex flex-col justify-between h-48 border-l-4 border-[#ea580c] group hover:translate-y-[-4px] transition-all duration-300"
+            className="bg-surface-container-lowest p-8 rounded-[14px] flex flex-col justify-between h-48 border-l-4 border-[#ea580c] group hover:translate-y-1 transition-all duration-300"
             style={{ boxShadow: '0 10px 30px -5px rgba(12,30,61,0.06)' }}
           >
             <div className="flex justify-between items-start">
