@@ -105,7 +105,7 @@ export default function Notifications() {
           <div className="flex flex-col gap-2">
             <span className="font-headline font-bold text-primary-container text-xl">CampusRide VIT AP</span>
             <p className="font-body text-xs uppercase tracking-widest text-slate-500">
-              © 2025 CampusRide VIT AP. Scholarly Kinetic Excellence.
+              CampusRide, Join the Ride.
             </p>
           </div>
           <div className="flex flex-wrap gap-6 md:justify-end">
