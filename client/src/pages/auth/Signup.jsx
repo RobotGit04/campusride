@@ -39,7 +39,7 @@ export default function Signup() {
             CampusRide
           </h1>
           <p className="text-on-surface-variant mt-2 font-medium">
-            Join the Scholarly Kinetic community.
+            Join the Ride with CampusRide.
           </p>
         </div>
 
