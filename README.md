@@ -98,10 +98,6 @@ Create a `server/.env` file with the following variables:
 - Admin can set custom commission percentage
 - PWA support — installable on mobile home screen
 
-## Design
-
-See the `/design/` folder in this repository for wireframes and UI screenshots.
-
 ## Team
 
 Built for ACM VIT AP — Upfront Open Source Challenge
