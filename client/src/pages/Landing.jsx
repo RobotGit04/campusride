@@ -99,17 +99,17 @@ export default function Landing() {
 
           <div className="relative hidden md:block">
             <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-4 border border-white/10">
-              <div className="bg-surface-container-low rounded-xl h-64 flex items-center justify-center">
-                <span className="material-symbols-outlined text-9xl text-secondary opacity-50">
-                  directions_bike
-                </span>
-              </div>
+              <img
+                src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600"
+                alt="Bike on campus"
+                className="w-full h-64 object-cover rounded-xl"
+              />
               <div className="absolute bottom-8 left-8 bg-white rounded-xl px-4 py-3 flex items-center gap-3 shadow-xl">
                 <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
                   <span className="material-symbols-outlined text-white text-sm">directions_bike</span>
                 </div>
                 <div>
-                  <p className="text-xs font-bold text-on-surface">Standard MTB</p>
+                  <p className="text-xs font-bold text-gray-900">Standard MTB</p>
                   <p className="text-[10px] text-green-500 font-medium">Available near Block 1</p>
                 </div>
               </div>
