@@ -5,17 +5,31 @@ import Navbar from '../../components/Navbar';
 import toast from 'react-hot-toast';
 import { format } from 'date-fns';
 
+const statusConfig = {
+  PENDING:   { cls: 'bg-[#fef3c7] text-[#92400e]',   label: 'Pending' },
+  CONFIRMED: { cls: 'bg-[#dbeafe] text-[#1e40af]',   label: 'Confirmed' },
+  ACTIVE:    { cls: 'bg-[#dcfce7] text-[#166534]',   label: 'Active' },
+  COMPLETED: { cls: 'bg-[#f3f4f6] text-[#374151]',   label: 'Completed' },
+  CANCELLED: { cls: 'bg-[#fde8e8] text-[#991b1b]',   label: 'Cancelled' },
+  REJECTED:  { cls: 'bg-[#fde8e8] text-[#991b1b]',   label: 'Rejected' },
+};
+
 export default function MyBookings() {
   const [bookings, setBookings] = useState([]);
+  const [filtered, setFiltered] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState('All Rides');
   const [ratingBooking, setRatingBooking] = useState(null);
   const [stars, setStars] = useState(5);
   const [review, setReview] = useState('');
+
+  const tabs = ['All Rides', 'Active', 'Pending', 'Completed'];
 
   const fetchBookings = async () => {
     try {
       const res = await api.get('/bookings/renter');
       setBookings(res.data);
+      setFiltered(res.data);
     } catch {
       toast.error('Failed to load bookings');
     } finally {
@@ -24,6 +38,14 @@ export default function MyBookings() {
   };
 
   useEffect(() => { fetchBookings(); }, []);
+
+  useEffect(() => {
+    if (activeTab === 'All Rides') {
+      setFiltered(bookings);
+    } else {
+      setFiltered(bookings.filter(b => b.status === activeTab.toUpperCase()));
+    }
+  }, [activeTab, bookings]);
 
   const handleCancel = async (id) => {
     try {
@@ -37,11 +59,7 @@ export default function MyBookings() {
 
   const handleRating = async () => {
     try {
-      await api.post('/ratings', {
-        bookingId: ratingBooking,
-        stars,
-        review,
-      });
+      await api.post('/ratings', { bookingId: ratingBooking, stars, review });
       toast.success('Rating submitted!');
       setRatingBooking(null);
       setReview('');
@@ -52,130 +70,176 @@ export default function MyBookings() {
     }
   };
 
-  const statusColor = (status) => {
-    const map = {
-      PENDING: 'bg-yellow-100 text-yellow-700',
-      CONFIRMED: 'bg-blue-100 text-blue-700',
-      ACTIVE: 'bg-green-100 text-green-700',
-      COMPLETED: 'bg-gray-100 text-gray-700',
-      CANCELLED: 'bg-red-100 text-red-700',
-      REJECTED: 'bg-red-100 text-red-700',
-    };
-    return map[status] || 'bg-gray-100 text-gray-700';
-  };
-
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="bg-background text-on-background antialiased font-body">
       <Navbar />
-      <div className="max-w-4xl mx-auto px-4 py-8">
-        <h1 className="text-2xl font-bold text-gray-900 mb-6">My Bookings</h1>
+
+      <main className="pt-32 pb-20 px-6 md:px-16 max-w-7xl mx-auto min-h-screen">
+
+        <section className="mb-12">
+          <h1 className="text-4xl md:text-5xl font-bold font-headline text-primary tracking-tight mb-4">
+            My Bookings
+          </h1>
+          <p className="text-on-surface-variant text-lg max-w-2xl">
+            Track your cycling journeys across campus. Manage your active rentals and plan your next ride.
+          </p>
+        </section>
+
+        {/* Filter Tabs */}
+        <div className="flex flex-wrap gap-4 mb-10 overflow-x-auto pb-2">
+          {tabs.map(tab => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`px-6 py-2.5 rounded-full font-semibold text-sm transition-all ${
+                activeTab === tab
+                  ? 'bg-primary-container text-white shadow-md'
+                  : 'bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest'
+              }`}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
 
         {loading ? (
-          <div className="text-center py-20 text-gray-400">Loading...</div>
-        ) : bookings.length === 0 ? (
+          <div className="text-center py-20 text-on-surface-variant">Loading bookings...</div>
+        ) : filtered.length === 0 ? (
           <div className="text-center py-20">
-            <p className="text-gray-400 mb-4">No bookings yet</p>
+            <p className="text-on-surface-variant text-lg mb-6">No bookings found</p>
             <Link to="/browse"
-              className="bg-blue-600 text-white px-6 py-2 rounded-xl text-sm hover:bg-blue-700">
+              className="bg-primary-container text-white font-bold px-8 py-3 rounded-lg hover:bg-secondary transition-all"
+              style={{ textDecoration: 'none' }}>
               Browse bikes
             </Link>
           </div>
         ) : (
-          <div className="space-y-4">
-            {bookings.map(booking => (
-              <div key={booking.id}
-                className="bg-white rounded-2xl border border-gray-200 p-5">
-                <div className="flex gap-4">
-                  <div className="w-24 h-24 rounded-xl overflow-hidden bg-gray-100 shrink-0">
-                    {booking.bike?.photos?.[0] ? (
-                      <img src={booking.bike.photos[0]} alt=""
-                        className="w-full h-full object-cover"/>
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs">
-                        No photo
-                      </div>
-                    )}
-                  </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {filtered.map(booking => (
+              <div
+                key={booking.id}
+                className="bg-surface-container-lowest rounded-[14px] p-6 flex flex-col md:flex-row gap-6"
+                style={{ boxShadow: '0 10px 30px -5px rgba(12,30,61,0.06)' }}
+              >
+                <div className="md:w-1/3 shrink-0">
+                  {booking.bike?.photos?.[0] ? (
+                    <img
+                      src={booking.bike.photos[0]}
+                      alt={booking.bike.name}
+                      className="w-full h-48 md:h-full object-cover rounded-xl shadow-inner"
+                    />
+                  ) : (
+                    <div className="w-full h-48 rounded-xl bg-surface-container flex items-center justify-center">
+                      <span className="material-symbols-outlined text-5xl text-outline-variant">
+                        directions_bike
+                      </span>
+                    </div>
+                  )}
+                </div>
 
-                  <div className="flex-1">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <h3 className="font-semibold text-gray-900">{booking.bike?.name}</h3>
-                        <p className="text-sm text-gray-500">
-                          Owner: {booking.bike?.owner?.name}
-                        </p>
-                      </div>
-                      <span className={`text-xs px-3 py-1 rounded-full font-medium ${statusColor(booking.status)}`}>
+                <div className="flex-grow flex flex-col justify-between">
+                  <div>
+                    <div className="flex justify-between items-start mb-2">
+                      <span className={`px-3 py-1 text-[10px] font-bold tracking-widest rounded-full uppercase ${statusConfig[booking.status]?.cls}`}>
                         {booking.status}
                       </span>
+                      <span className="text-[#2563eb] font-bold font-headline">₹{booking.totalCost}</span>
                     </div>
 
-                    <div className="mt-2 flex flex-wrap gap-4 text-sm text-gray-600">
-                      <span>
-                        {format(new Date(booking.startDate), 'dd MMM yyyy')} →{' '}
-                        {format(new Date(booking.endDate), 'dd MMM yyyy')}
+                    <h3 className="text-xl font-bold text-primary font-headline mb-1">
+                      {booking.bike?.name}
+                    </h3>
+                    <p className="text-on-surface-variant text-sm flex items-center gap-1 mb-4">
+                      <span className="material-symbols-outlined text-sm">person</span>
+                      Owner: {booking.bike?.owner?.name}
+                    </p>
+
+                    <div className="space-y-2 text-sm text-on-surface">
+                      <div className="flex items-center gap-2">
+                        <span className="material-symbols-outlined text-secondary text-base">calendar_today</span>
+                        <span>
+                          {format(new Date(booking.startDate), 'dd MMM')} — {format(new Date(booking.endDate), 'dd MMM yyyy')}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-6 flex gap-3">
+                    {['PENDING', 'CONFIRMED'].includes(booking.status) && (
+                      <button
+                        onClick={() => handleCancel(booking.id)}
+                        className="flex-1 py-2 rounded-lg border border-error text-error font-semibold text-sm hover:bg-error/5 transition-all"
+                      >
+                        Cancel
+                      </button>
+                    )}
+                    {booking.status === 'COMPLETED' && !booking.rating && (
+                      <button
+                        onClick={() => setRatingBooking(booking.id)}
+                        className="flex-1 py-2 rounded-lg bg-primary-container text-white font-semibold text-sm hover:bg-secondary transition-all"
+                      >
+                        Leave a review
+                      </button>
+                    )}
+                    {booking.status === 'COMPLETED' && booking.rating && (
+                      <span className="text-xs text-on-surface-variant font-medium flex items-center gap-1">
+                        <span className="material-symbols-outlined text-sm text-[#16a34a]" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
+                        Reviewed
                       </span>
-                      <span className="font-medium text-blue-600">₹{booking.totalCost}</span>
-                    </div>
-
-                    <div className="mt-3 flex gap-2">
-                      {['PENDING', 'CONFIRMED'].includes(booking.status) && (
-                        <button
-                          onClick={() => handleCancel(booking.id)}
-                          className="text-xs border border-red-200 text-red-500 px-3 py-1 rounded-lg hover:bg-red-50">
-                          Cancel
-                        </button>
-                      )}
-                      {booking.status === 'COMPLETED' && !booking.rating && (
-                        <button
-                          onClick={() => setRatingBooking(booking.id)}
-                          className="text-xs border border-blue-200 text-blue-500 px-3 py-1 rounded-lg hover:bg-blue-50">
-                          Leave a review
-                        </button>
-                      )}
-                    </div>
+                    )}
                   </div>
                 </div>
               </div>
             ))}
           </div>
         )}
+      </main>
 
-        {ratingBooking && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-2xl p-6 w-full max-w-md">
-              <h3 className="font-bold text-gray-900 mb-4">Leave a review</h3>
+      {/* Rating Modal */}
+      {ratingBooking && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          style={{ background: 'rgba(0,0,0,0.5)' }}>
+          <div className="bg-white rounded-2xl p-8 w-full max-w-md"
+            style={{ boxShadow: '0 20px 50px rgba(0,0,0,0.2)' }}>
+            <h3 className="font-headline font-bold text-xl text-primary mb-6">Leave a review</h3>
 
-              <div className="flex gap-2 mb-4">
-                {[1,2,3,4,5].map(s => (
-                  <button key={s} onClick={() => setStars(s)}
-                    className={`text-2xl ${s <= stars ? 'text-yellow-400' : 'text-gray-300'}`}>
-                    ★
-                  </button>
-                ))}
-              </div>
-
-              <textarea
-                placeholder="Write your review (optional)"
-                value={review}
-                onChange={e => setReview(e.target.value)}
-                rows={3}
-                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"/>
-
-              <div className="flex gap-3">
-                <button onClick={handleRating}
-                  className="flex-1 bg-blue-600 text-white rounded-xl py-2 text-sm font-medium hover:bg-blue-700">
-                  Submit
+            <div className="flex gap-2 mb-6">
+              {[1,2,3,4,5].map(s => (
+                <button key={s} onClick={() => setStars(s)}
+                  className={`text-3xl transition-colors ${s <= stars ? 'text-yellow-400' : 'text-slate-300'}`}>
+                  ★
                 </button>
-                <button onClick={() => setRatingBooking(null)}
-                  className="flex-1 border border-gray-200 rounded-xl py-2 text-sm text-gray-600 hover:bg-gray-50">
-                  Cancel
-                </button>
-              </div>
+              ))}
+            </div>
+
+            <textarea
+              placeholder="Write your review (optional)"
+              value={review}
+              onChange={e => setReview(e.target.value)}
+              rows={3}
+              className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-secondary/20 mb-6 resize-none"
+            />
+
+            <div className="flex gap-3">
+              <button onClick={handleRating}
+                className="flex-1 bg-primary-container text-white rounded-xl py-3 text-sm font-bold hover:bg-secondary transition-all">
+                Submit
+              </button>
+              <button onClick={() => setRatingBooking(null)}
+                className="flex-1 border border-slate-200 rounded-xl py-3 text-sm font-semibold text-on-surface-variant hover:bg-slate-50">
+                Cancel
+              </button>
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
+
+      <footer className="w-full py-12 px-8 border-t border-[#dbe3f1] bg-[#f8f9ff]">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+          <span className="text-lg font-bold text-primary font-headline">CampusRide VIT AP</span>
+          <p className="font-body text-sm text-slate-500">© 2025 CampusRide VIT AP. The Scholarly Kinetic.</p>
+        </div>
+      </footer>
     </div>
   );
 }
