@@ -44,6 +44,10 @@ export const signup = async (req, res) => {
 
 export const login = async (req, res) => {
   try {
+    console.log('LOGIN ATTEMPT:', req.body.email);
+    console.log('DATABASE_URL exists:', !!process.env.DATABASE_URL);
+    console.log('DATABASE_URL starts with:', process.env.DATABASE_URL?.substring(0, 50));
+    
     const { email, password } = req.body;
 
     const user = await prisma.user.findUnique({ where: { email } });
