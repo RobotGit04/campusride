@@ -31,13 +31,6 @@ export default function Notifications() {
 
   useEffect(() => { fetchNotifications(); }, []);
 
-  const icons = {
-    booking: 'directions_bike',
-    payment: 'payments',
-    system: 'new_releases',
-    default: 'notifications',
-  };
-
   return (
     <div className="bg-background min-h-screen font-body">
       <Navbar />

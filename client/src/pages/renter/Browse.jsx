@@ -49,7 +49,7 @@ export default function Browse() {
 
         {/* Filter Bar */}
         <div className="mb-10 p-6 bg-white rounded-xl flex flex-wrap gap-4 items-end shadow-sm border border-[#bfdbfe]">
-          <div className="flex-1 min-w-[240px]">
+          <div className="flex-1 min-w-60">
             <label className="block text-xs font-bold text-on-surface-variant mb-2 font-headline uppercase tracking-wider">
               Search
             </label>
@@ -133,9 +133,8 @@ export default function Browse() {
               <Link
                 key={bike.id}
                 to={`/bikes/${bike.id}`}
-                style={{ textDecoration: 'none' }}
                 className="group bg-surface-container-lowest rounded-[14px] p-4 border border-[#bfdbfe] hover:-translate-y-2 transition-all duration-300 block"
-                style={{ boxShadow: '0 10px 30px -5px rgba(12,30,61,0.06)' }}
+                style={{ textDecoration: 'none', boxShadow: '0 10px 30px -5px rgba(12,30,61,0.06)' }}
               >
                 <div className="relative mb-4 overflow-hidden rounded-xl bg-surface-container-low">
                   {bike.photos?.[0] ? (
