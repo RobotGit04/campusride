@@ -11,12 +11,6 @@ import bookingRoutes from './routes/booking.routes.js';
 import notificationRoutes from './routes/notification.routes.js';
 import ratingRoutes from './routes/rating.routes.js';
 import adminRoutes from './routes/admin.routes.js';
-import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient();
-
-prisma.$connect()
-  .then(() => console.log('Database connected successfully'))
-  .catch((e) => console.error('Database connection failed:', e.message));
 
 const app = express();
 app.set('trust proxy', 1);
