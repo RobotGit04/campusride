@@ -7,7 +7,6 @@ A full-stack two-sided bike rental marketplace built for VIT AP University stude
 - **Frontend:** [campusride-theta.vercel.app](https://campusride-theta.vercel.app)
 - **Backend:** [campusride-api-usy6.onrender.com](https://campusride-api-usy6.onrender.com)
 - **GitHub:** [github.com/RobotGit04/campusride](https://github.com/RobotGit04/campusride)
-- **Demo Video:** [Watch on Google Drive](https://drive.google.com/your-link-here)
 
 ## Problem Statement
 
